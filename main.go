@@ -10,8 +10,9 @@ import (
 
 func main() {
 	config.Carregar()
-	fmt.Println(config.StringConexaoBnaco)
+	// fmt.Println(config.StringConexaoBnaco)
 	fmt.Println("Rodando a API")
+	fmt.Println(config.SecretKey)
 
 	r := router.Gerar()
 
