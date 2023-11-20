@@ -26,7 +26,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db, erro := banco.Conectar()
-	if erro = json.Unmarshal(corpoRequisicao, &usuario); erro != nil {
+	if erro != nil {
 		respostas.Erro(w, http.StatusInternalServerError, erro)
 		return
 	}
@@ -44,6 +44,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, _ := autentificacao.CriarToken(usuarioSalvoNoBanco.ID)
+	token, erro := autentificacao.CriarToken(usuarioSalvoNoBanco.ID)
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
 	w.Write([]byte(token))
 }
